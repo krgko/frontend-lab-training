@@ -66,39 +66,40 @@ export default function Datepicker() {
   const isSelected = (day) => selectedDate && day.date.toDateString() === selectedDate.toDateString();
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block text-sm">
       <input
         type="text"
         readOnly
         value={formattedDate}
         onClick={toggleCalendar}
         placeholder="Select date"
-        className="w-40 p-2 bg-gray-800 border border-gray-700 rounded cursor-pointer text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-40 p-2 bg-white border border-gray-200 rounded cursor-pointer text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
       />
 
       {showCalendar && (
-        <div className="absolute top-full left-0 mt-2 bg-gray-800 border border-gray-700 rounded shadow-lg z-50 p-4 text-white">
+        <div className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded shadow-lg z-50 p-4 text-gray-900 w-64">
           <div className="flex justify-between items-center mb-2">
-            <button onClick={prevMonth} className="p-1 hover:bg-gray-700 rounded text-white">&lt;</button>
-            <span className="font-medium text-white">{currentMonthName} {currentYear}</span>
-            <button onClick={nextMonth} className="p-1 hover:bg-gray-700 rounded text-white">&gt;</button>
+            <button onClick={prevMonth} className="p-1 hover:bg-gray-100 rounded text-gray-700">&lt;</button>
+            <span className="font-medium text-gray-800">{currentMonthName} {currentYear}</span>
+            <button onClick={nextMonth} className="p-1 hover:bg-gray-100 rounded text-gray-700">&gt;</button>
           </div>
 
           <div className="grid grid-cols-7 text-center mb-1">
             {weekdays.map((day) => (
-              <span key={day} className="font-semibold text-gray-300">{day}</span>
+              <span key={day} className="font-semibold text-gray-500">{day}</span>
             ))}
           </div>
 
-          <div className="grid grid-cols-7 text-center">
+          <div className="grid grid-cols-7 text-center gap-1">
             {calendarDays.map((day) => (
-              <span
+              <button
                 key={day.date.toISOString()}
                 onClick={() => selectDate(day)}
-                className={`p-2 cursor-pointer rounded-full ${day.otherMonth ? 'text-gray-500' : 'text-gray-200 hover:bg-blue-600'} ${isSelected(day) ? 'bg-blue-500 text-white' : ''}`}
+                className={`p-2 rounded-full w-8 h-8 flex items-center justify-center text-sm ${day.otherMonth ? 'text-gray-300' : 'text-gray-800 hover:bg-blue-50'} ${isSelected(day) ? 'bg-blue-500 text-white' : ''}`}
+                aria-pressed={isSelected(day)}
               >
                 {day.date.getDate()}
-              </span>
+              </button>
             ))}
           </div>
         </div>
